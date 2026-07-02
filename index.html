@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dwaipayan Ray | Director & Vibe Coder</title>
+    
+    <!-- Google Fonts for Premium Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-base: #030304;
+            --bg-surface: rgba(255, 255, 255, 0.02);
+            --bg-surface-hover: rgba(255, 255, 255, 0.05);
+            --accent-gold: #E5A93C;
+            --accent-gold-glow: rgba(229, 169, 60, 0.3);
+            --text-main: #F5F5F7;
+            --text-muted: #A1A1A6;
+            --border-light: rgba(255, 255, 255, 0.08);
+            
+            --font-sans: 'Outfit', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Cinematic Film Grain Overlay */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.04;
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Ambient Hero Glow */
+        .ambient-glow {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(229,169,60,0.05) 0%, rgba(0,0,0,0) 70%);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            padding: 0 20px;
+            z-index: 1;
+        }
+
+        .hero-title {
+            font-family: var(--font-sans);
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+            animation: fadeInDown 1.5s ease cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .hero-title span {
+            font-family: var(--font-serif);
+            font-style: italic;
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+            font-weight: 300;
+            animation: fadeInUp 1.5s ease cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .hero-tags {
+            display: flex;
+            gap: 20px;
+            animation: fadeIn 2s ease 0.5s forwards;
+            opacity: 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .tag {
+            padding: 10px 24px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            color: var(--text-main);
+        }
+
+        .tag i {
+            color: var(--accent-gold);
+            margin-right: 8px;
+        }
+
+        .tag:hover {
+            border-color: var(--accent-gold);
+            background: rgba(229, 169, 60, 0.05);
+            box-shadow: 0 0 20px var(--accent-gold-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Content Sections */
+        section {
+            padding: 120px 10%;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-style: italic;
+            margin-bottom: 60px;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .section-header::after {
+            content: "";
+            height: 1px;
+            flex-grow: 1;
+            background: linear-gradient(90deg, var(--accent-gold), transparent);
+            opacity: 0.3;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        /* Premium Glass Cards */
+        .card {
+            background: var(--bg-surface);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 50px 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border-light);
+            transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.06), transparent 40%);
+            opacity: 0;
+            transition: opacity 0.5s;
+            pointer-events: none;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(229, 169, 60, 0.3);
+            background: var(--bg-surface-hover);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .card h3 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--text-main);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tech-stack span {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-gold);
+            background: rgba(229, 169, 60, 0.1);
+            padding: 4px 12px;
+            border-radius: 4px;
+        }
+
+        /* About Grid */
+        .about-text {
+            line-height: 1.9;
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+        
+        .about-text p {
+            margin-bottom: 20px;
+        }
+
+        .about-text strong {
+            color: var(--text-main);
+            font-weight: 500;
+        }
+
+        .about-list {
+            list-style: none;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 40px;
+            height: 100%;
+        }
+
+        .about-list li {
+            margin-bottom: 25px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .about-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .about-list i {
+            color: var(--accent-gold);
+            font-size: 1.4rem;
+            width: 30px;
+            text-align: center;
+            margin-top: 3px;
+        }
+        
+        .about-list .list-content {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .about-list .list-title {
+            color: var(--text-main);
+            font-weight: 500;
+            margin-bottom: 4px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+        
+        .about-list .list-desc {
+            color: var(--text-muted);
+            font-weight: 300;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 80px 20px;
+            background: #020202;
+            border-top: 1px solid var(--border-light);
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-links {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+        }
+
+        .social-links a {
+            color: var(--text-main);
+            font-size: 1.5rem;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px solid var(--border-light);
+            transition: all 0.4s ease;
+            text-decoration: none;
+            background: var(--bg-surface);
+        }
+
+        .social-links a:hover {
+            color: var(--bg-base);
+            background: var(--accent-gold);
+            border-color: var(--accent-gold);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px var(--accent-gold-glow);
+        }
+
+        /* Animations */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .grid-2 { grid-template-columns: 1fr; gap: 30px; }
+            .hero-title { font-size: 3.5rem; }
+            .section-header { font-size: 2.5rem; }
+            .card { padding: 40px 30px; }
+        }
+        
+        @media (max-width: 480px) {
+            .hero-title { font-size: 2.5rem; }
+            .hero-subtitle { font-size: 0.9rem; }
+            .section-header { font-size: 2rem; }
+        }
+    </style>
+  <meta name="monetag" content="b4c11ee9eb77e07d53641df51ecd2858">
+</head>
+<body>
+
+    <div class="ambient-glow"></div>
+
+    <!-- Coming Soon Section -->
+    <header id="hero">
+        <h1 class="hero-title" style="font-size: clamp(3.5rem, 8vw, 7rem);">Coming <span>Soon</span></h1>
+        <p class="hero-subtitle" style="margin-bottom: 40px;">Dwaipayan Ray • Director & Vibe Coder</p>
+        
+        <div class="social-links" style="animation: fadeInUp 1.5s ease cubic-bezier(0.2, 0.8, 0.2, 1) 0.5s both;">
+            <a href="https://github.com/dwaipayanray95" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            <a href="https://www.tcustudios.com" target="_blank" aria-label="TCU Studios"><i class="fas fa-globe"></i></a>
+            <a href="mailto:ray@tcustudios.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+    </header>
+
+</body>
+</html>
+
